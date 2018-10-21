@@ -53,14 +53,14 @@ const realArgs = process.argv.slice(2);
     const dom = $(html);
     let sum = new BigNumber(0);
     let shares = {};
-    dom.find(`table:eq(${data.tableIndex}) > tbody > tr`).each((index, elem) => {
+    $(dom.find(`table`)[data.tableIndex]).find(`tbody > tr`).each((index, elem) => {
         const address = $(elem).find("td:eq(0) > a").text();
         const soloShares = $(elem).find("td:eq(1)").text();
         sum = sum.plus(soloShares);
         shares[address] = soloShares;
     });
     console.log(`Total Shares: ${+sum}`);
-    const balanceStdout = ambigiousToString(spawnSyncMod([...data.rpcs, "getbalance"]).stdout);
+    const balanceStdout = ambigiousToString(spawnSyncMod([...data.rpc, "getbalance"]).stdout);
     const rounded = cutdown(balanceStdout, "0.1");
     console.log(`Total Balance: ${+rounded}`);
     let toSend = {};
