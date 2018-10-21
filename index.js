@@ -57,6 +57,7 @@ const realArgs = process.argv.slice(2);
         const soloShares = $($(elem).find("td")[1]).text();
         sum = sum.plus(soloShares);
         shares[address] = soloShares;
+        console.log(`${address}: ${soloShares}`);
     });
     console.log(`Total Shares: ${+sum}`);
     const balanceStdout = ambigiousToString(spawnSyncMod([...data.rpc, "getbalance"]).stdout);
@@ -65,7 +66,7 @@ const realArgs = process.argv.slice(2);
     let toSend = {};
     // rounded * shares / sum
     for (let address in shares) {
-        const rawNumber = rounded.times(shares).dividedBy(sum);
+        const rawNumber = rounded.times(address).dividedBy(sum);
         const toUse = cutdown(rawNumber, "0.1");
         toSend[address] = toUse.toString();
         console.log(`${address}: ${toUse.toString()}`)
