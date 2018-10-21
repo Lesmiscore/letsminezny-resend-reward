@@ -45,7 +45,7 @@ function cutdown(bn, unit) {
 
 const realArgs = process.argv.slice(2);
 (async () => {
-    const data = rpcs[realArgs || "zny"];
+    const data = rpcs[realArgs[0] || "zny"];
     const html = (await axios("https://letsminezny.orz.hm/workers", {
         responseType: "text"
     })).data;
