@@ -49,7 +49,6 @@ const realArgs = process.argv.slice(2);
     const html = (await axios("https://letsminezny.orz.hm/workers", {
         responseType: "text"
     })).data;
-    console.log(data);
     const dom = $(html);
     let sum = new BigNumber(0);
     let shares = {};
