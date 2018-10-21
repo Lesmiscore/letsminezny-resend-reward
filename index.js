@@ -67,8 +67,9 @@ const realArgs = process.argv.slice(2);
     // rounded * shares / sum
     for (let address in shares) {
         const rawNumber = rounded.times(shares[address]).dividedBy(sum);
-        const toUse = cutdown(rawNumber, "0.1");
+        const toUse = cutdown(rawNumber, "0.05");
         toSend[address] = toUse.toString();
         console.log(`${address}: ${toUse.toString()}`)
     }
-})().then(console.log, console.log);
+    console.log(spawnSyncMod([...data.rpc, "sendmany", JSON.stringify(toSend), "1", "Sent from resend tool"]).stdout);
+})().then(a => a, console.log);
