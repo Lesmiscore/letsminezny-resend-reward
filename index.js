@@ -71,5 +71,7 @@ const realArgs = process.argv.slice(2);
         toSend[address] = toUse.toString();
         console.log(`${address}: ${toUse.toString()}`)
     }
-    console.log(spawnSyncMod([...data.rpc, "sendmany", JSON.stringify(toSend), "1", "Sent from resend tool"]).stdout);
+    const sendmany = spawnSyncMod([...data.rpc, "sendmany", JSON.stringify(toSend), "1", "Sent from resend tool"]);
+    console.log(ambigiousToString(sendmany.stdout));
+    console.log(ambigiousToString(sendmany.stderr));
 })().then(a => a, console.log);
