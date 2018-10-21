@@ -49,11 +49,12 @@ const realArgs = process.argv.slice(2);
     const html = (await axios("https://letsminezny.orz.hm/workers", {
         responseType: "text"
     })).data;
+    console.log(data);
     const dom = $(html);
     let sum = new BigNumber(0);
     let shares = {};
     dom.find(`table:eq(${data.tableIndex}) > tbody > tr`).each((index, elem) => {
-        const address = $(elem).find("td:eq(0)").text();
+        const address = $(elem).find("td:eq(0) > a").text();
         const soloShares = $(elem).find("td:eq(1)").text();
         sum = sum.plus(soloShares);
         shares[address] = soloShares;
