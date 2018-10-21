@@ -58,8 +58,10 @@ const realArgs = process.argv.slice(2);
         sum = sum.plus(soloShares);
         shares[address] = soloShares;
     });
+    console.log(`Total Shares: ${+sum}`);
     const balanceStdout = ambigiousToString(spawnSyncMod([...data.rpcs, "getbalance"]).stdout);
     const rounded = cutdown(balanceStdout, "0.1");
+    console.log(`Total Balance: ${+rounded}`);
     let toSend = {};
     // rounded * shares / sum
     for (let address in shares) {
