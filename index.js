@@ -53,7 +53,7 @@ const realArgs = process.argv.slice(2);
     let sum = new BigNumber(0);
     let shares = {};
     $(dom.find("table")[data.tableIndex]).find(`tbody > tr`).each((index, elem) => {
-        const address = $($(elem).find("td")[1]).find("a").text();
+        const address = $($(elem).find("td")[0]).find("a").text();
         const soloShares = $($(elem).find("td")[1]).text();
         sum = sum.plus(soloShares);
         shares[address] = soloShares;
@@ -66,7 +66,7 @@ const realArgs = process.argv.slice(2);
     let toSend = {};
     // rounded * shares / sum
     for (let address in shares) {
-        const rawNumber = rounded.times(address).dividedBy(sum);
+        const rawNumber = rounded.times(shares[address]).dividedBy(sum);
         const toUse = cutdown(rawNumber, "0.1");
         toSend[address] = toUse.toString();
         console.log(`${address}: ${toUse.toString()}`)
