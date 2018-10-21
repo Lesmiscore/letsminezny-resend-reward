@@ -52,9 +52,9 @@ const realArgs = process.argv.slice(2);
     const dom = $(html);
     let sum = new BigNumber(0);
     let shares = {};
-    $(dom.find(`table`)[data.tableIndex]).find(`tbody > tr`).each((index, elem) => {
-        const address = $(elem).find("td:eq(0) > a").text();
-        const soloShares = $(elem).find("td:eq(1)").text();
+    $(dom.find("table")[data.tableIndex]).find(`tbody > tr`).each((index, elem) => {
+        const address = $($(elem).find("td")[1]).find("a").text();
+        const soloShares = $($(elem).find("td")[1]).text();
         sum = sum.plus(soloShares);
         shares[address] = soloShares;
     });
