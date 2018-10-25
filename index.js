@@ -19,11 +19,13 @@ function satoshiToFloat(num) {
 const rpcs = {
     zny: {
         rpc: ["docker", "exec", "zenyd", "bitzeny-cli"],
-        tableIndex: 0
+        tableIndex: 0,
+        minimum: 123
     },
     mona: {
         rpc: ["docker", "exec", "monad", "monacoin-cli"],
-        tableIndex: 3
+        tableIndex: 3,
+        minimum: 44
     }
 };
 
@@ -63,6 +65,10 @@ const realArgs = process.argv.slice(2);
     const balanceStdout = ambigiousToString(spawnSyncMod([...data.rpc, "getbalance"]).stdout);
     const rounded = cutdown(balanceStdout, "0.1");
     console.log(`Total Balance: ${+rounded}`);
+    if (rounded.lt(data.minimum)) {
+        console.log("Must be more than 2 blocks to be awaiting");
+        return;
+    }
     let toSend = {};
     // rounded * shares / sum
     for (let address in shares) {
