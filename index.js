@@ -70,7 +70,7 @@ const realArgs = process.argv.slice(2);
         return;
     }
     let toSend = {};
-    let totalSent = new BigNumber(0):
+    let totalSent = new BigNumber(0);
         // rounded * shares / sum
         for (let address in shares) {
             const rawNumber = rounded.times(shares[address]).dividedBy(sum);
