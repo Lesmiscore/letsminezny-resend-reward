@@ -74,8 +74,11 @@ const realArgs = process.argv.slice(2);
     for (let address in shares) {
         const rawNumber = rounded.times(shares[address]).dividedBy(sum);
         const toUse = cutdown(rawNumber, "0.05");
+        if (toUse.eq(0)) {
+            continue;
+        }
         toSend[address] = toUse.toString();
-        console.log(`${address}: ${toUse.toString()}`)
+        console.log(`${address}: ${toUse.toString()}`);
     }
     const sendmany = spawnSyncMod([...data.rpc, "sendmany", "", JSON.stringify(toSend), "1", "Sent from resend tool"]);
     console.log(ambigiousToString(sendmany.stdout));
