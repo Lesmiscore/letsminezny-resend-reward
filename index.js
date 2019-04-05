@@ -20,7 +20,7 @@ const rpcs = {
     zny: {
         rpc: ["docker", "exec", "zenyd", "bitzeny-cli"],
         tableIndex: 0,
-        minimum: 123
+        minimum: 61
     },
     mona: {
         rpc: ["docker", "exec", "monad", "monacoin-cli"],
